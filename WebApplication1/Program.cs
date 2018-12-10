@@ -16,6 +16,7 @@ namespace WebApplication1
         {
             //changes
             //changes after fetch from github
+            //test commit 
             CreateWebHostBuilder(args).Build().Run();
         }
 
