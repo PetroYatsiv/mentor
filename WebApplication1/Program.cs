@@ -15,6 +15,7 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             //changes
+            //changes after fetch from github
             CreateWebHostBuilder(args).Build().Run();
         }
 
