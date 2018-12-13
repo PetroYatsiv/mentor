@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace DataForum
 {
-    class ApplicationContext : DbContext
+   public class ApplicationContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+
         public ApplicationContext()
         {
             Database.EnsureCreated();
