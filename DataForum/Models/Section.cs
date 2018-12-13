@@ -13,8 +13,6 @@ namespace Forum.Data.Models
         public int Id { get; set; }
         public string SectionDescription { get; set; }
 
-        public Section IdNavigation { get; set; }
-        public Section InverseIdNavigation { get; set; }
         public ICollection<Topic> Topic { get; set; }
     }
 }

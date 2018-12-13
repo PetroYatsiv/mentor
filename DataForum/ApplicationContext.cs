@@ -8,7 +8,6 @@ namespace DataForum
 {
    public class ApplicationContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
 
         public ApplicationContext()
         {

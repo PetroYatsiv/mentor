@@ -31,18 +31,10 @@ namespace Forum.Data.Models
         {
             modelBuilder.Entity<Section>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.SectionDescription)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.InverseIdNavigation)
-                    .HasForeignKey<Section>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Section_Section");
             });
 
             modelBuilder.Entity<Topic>(entity =>
@@ -56,7 +48,7 @@ namespace Forum.Data.Models
                     .WithMany(p => p.Topic)
                     .HasForeignKey(d => d.SectionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Topic_Topic");
+                    .HasConstraintName("FK_Topic_Section");
             });
         }
     }
