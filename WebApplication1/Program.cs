@@ -15,7 +15,7 @@ namespace WebApplication1
     {
         public static void Main(string[] args)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            using (ApplicationConte db = new ApplicationContext())
             {
                 
             }
