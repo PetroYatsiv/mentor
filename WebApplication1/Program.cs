@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Forum.Data.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -15,9 +16,20 @@ namespace WebApplication1
     {
         public static void Main(string[] args)
         {
-            using (forumDatabaseContext db = new forumDatabaseContext())
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<forumDatabaseContext>();
+            var options = optionsBuilder
+                .UseSqlServer(connectionString)
+                .Options;
+
+
+            using (forumDatabaseContext db = new forumDatabaseContext(options))
             {
-                
+                var test = db.Section.ToList();
             }
                 CreateWebHostBuilder(args).Build().Run();
         }
