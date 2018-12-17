@@ -6,6 +6,11 @@ namespace Forum.Data.Models
 {
     public partial class forumDatabaseContext : DbContext
     {
+
+        public virtual DbSet<Section> Section { get; set; }
+        public virtual DbSet<Topic> Topic { get; set; }
+        public virtual DbSet<SubSection> SubSection { get; set; }
+
         public forumDatabaseContext()
         {
         }
@@ -15,9 +20,10 @@ namespace Forum.Data.Models
         {
         }
 
-        public virtual DbSet<Section> Section { get; set; }
-        public virtual DbSet<Topic> Topic { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=WS-LV-CP2922\\SQLEXPRESS;Database=forumDatabase;Trusted_Connection=True;");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
