@@ -18,6 +18,7 @@ namespace Forum.Data.Models
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Section>(entity =>
