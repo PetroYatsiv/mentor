@@ -7,12 +7,12 @@ namespace Forum.Data.Models
     {
         public Section()
         {
-            Topic = new HashSet<Topic>();
+            Topics = new HashSet<Topic>();
         }
 
         public int Id { get; set; }
         public string SectionDescription { get; set; }
 
-        public ICollection<Topic> Topic { get; set; }
+        public ICollection<Topic> Topics { get; set; }
     }
 }

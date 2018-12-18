@@ -9,7 +9,8 @@ namespace Forum.Data.Models
 
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
-        public virtual DbSet<SubSection> SubSection { get; set; }
+        public virtual DbSet<SubTopic> SubTopic { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
 
         public forumDatabaseContext()
         {
@@ -43,7 +44,7 @@ namespace Forum.Data.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Section)
-                    .WithMany(p => p.Topic)
+                    .WithMany(p => p.Topics)
                     .HasForeignKey(d => d.SectionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Topic_Section");
