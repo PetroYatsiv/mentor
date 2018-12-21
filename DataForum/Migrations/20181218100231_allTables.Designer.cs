@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forum.Data.Migrations
 {
-    [DbContext(typeof(forumDatabaseContext))]
+    [DbContext(typeof(ForumDatabaseContext))]
     [Migration("20181218100231_allTables")]
     partial class allTables
     {

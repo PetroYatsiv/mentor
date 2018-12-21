@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Forum.Data.Models
 {
-    public partial class forumDatabaseContext : DbContext
+    public class ForumDatabaseContext : DbContext
     {
 
         public virtual DbSet<Section> Section { get; set; }
@@ -12,18 +14,24 @@ namespace Forum.Data.Models
         public virtual DbSet<SubTopic> SubTopic { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
 
-        public forumDatabaseContext()
+        public ForumDatabaseContext()
         {
         }
 
-        public forumDatabaseContext(DbContextOptions<forumDatabaseContext> options)
+        public ForumDatabaseContext(DbContextOptions<ForumDatabaseContext> options)
             : base(options)
         {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=WS-LV-CP2922\\SQLEXPRESS;Database=forumDatabase;Trusted_Connection=True;");
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+
+            optionsBuilder.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

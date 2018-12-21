@@ -15,6 +15,7 @@ namespace Forum.Data.Models
 
         public ICollection<Comment> Comments { get; set; }
 
+        public int TopicId { get; set; }
         public Topic Topic { get; set; }
     }
 }

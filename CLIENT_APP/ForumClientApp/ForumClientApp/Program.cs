@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Forum.Data.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace WebApplication1
+namespace ForumClientApp
 {
     public class Program
     {
@@ -24,7 +22,3 @@ namespace WebApplication1
                 .UseStartup<Startup>();
     }
 }
-// for Reverse Engineering or (Database first)
-// tools -> NuGet Package Manager -> Package Manager Console
-// don`t forget choose default project in Package Manager console
-// Scaffold-DbContext "Server=WS-LV-CP2922\SQLEXPRESS;Database=forumDatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Forum.Data.Models
 {
-    public partial class Section
+    public class Section
     {
         public Section()
         {

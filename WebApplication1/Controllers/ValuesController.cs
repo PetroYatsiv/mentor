@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Forum.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Controllers
 {
@@ -11,18 +12,33 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ForumDatabaseContext _context;
+        public ValuesController(ForumDatabaseContext context)
+        {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IActionResult> GetValues()
         {
-           return new string[] { "value1", "value2" };
+            var values = await _context.Section.ToListAsync();
+            return Ok(values);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            return "value";
+            var value = await _context.Section.FirstOrDefaultAsync(x => x.Id == id);
+            return Ok(value);
+        }
+
+        // GET api/values/5
+        [HttpGet("{id}/{v}")]
+        public ActionResult<string> Get(int id, string v)
+        {
+            return "value32";
         }
 
         // POST api/values
