@@ -10,10 +10,10 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class SectionController : ControllerBase
     {
         private readonly ForumDatabaseContext _context;
-        public ValuesController(ForumDatabaseContext context)
+        public SectionController(ForumDatabaseContext context)
         {
             _context = context;
         }

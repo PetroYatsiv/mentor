@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ForumClientApp.Models;
+using ForumClientApp.Services;
 using Forum.Data.Models;
 using WebApplication1.Controllers;
 using System.Net.Http;
@@ -15,23 +16,16 @@ namespace ForumClientApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SectionService _sectionService;
+        public HomeController()
+        {
+            _sectionService = new SectionService();
+        }
+
         public async Task<IActionResult> Index()
         {
-            var test = new List<string>();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44310/api/");
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/Values/");
-                
-                if (Res.IsSuccessStatusCode)
-                {
-                    var responce = Res.Content.ReadAsStringAsync().Result;
-                    test = JsonConvert.DeserializeObject<List<string>>(responce);
-                }
-            }
-            return View(test);
+            var sectionService = _sectionService.GetSections();
+            return View();
         }
 
         public IActionResult Privacy()
