@@ -5,14 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ForumClientApp.Models;
+using Forum.Data.Models;
+using WebApplication1.Controllers;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace ForumClientApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var test = new List<string>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44310/api/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/Values/");
+                
+                if (Res.IsSuccessStatusCode)
+                {
+                    var responce = Res.Content.ReadAsStringAsync().Result;
+                    test = JsonConvert.DeserializeObject<List<string>>(responce);
+                }
+            }
+            return View(test);
         }
 
         public IActionResult Privacy()

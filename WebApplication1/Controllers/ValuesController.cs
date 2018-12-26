@@ -18,13 +18,17 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        // GET api/values
-        [HttpGet]
+        //GET api/values
+         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
             var values = await _context.Section.ToListAsync();
             return Ok(values);
+            //string data = "";
+            //data = Request.Method;
+            //return Ok(data);
         }
+
 
         // GET api/values/5
         [HttpGet("{id}")]
