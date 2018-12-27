@@ -18,11 +18,11 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        //GET api/values
+        //GET api/section
          [HttpGet]
         public async Task<IActionResult> GetValues()
         {
-            var values = await _context.Section.ToListAsync();
+            var values = await _context.Section.Include(x => x.Topics).ToListAsync();
             return Ok(values);
             //string data = "";
             //data = Request.Method;
@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        // GET api/values/5
+        // GET api/section/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {
@@ -38,26 +38,26 @@ namespace WebApplication1.Controllers
             return Ok(value);
         }
 
-        // GET api/values/5
+        // GET api/section/5
         [HttpGet("{id}/{v}")]
         public ActionResult<string> Get(int id, string v)
         {
             return "value32";
         }
 
-        // POST api/values
+        // POST api/section
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/section/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/section/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

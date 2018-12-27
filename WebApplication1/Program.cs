@@ -24,7 +24,3 @@ namespace WebApplication1
                 .UseStartup<Startup>();
     }
 }
-// for Reverse Engineering or (Database first)
-// tools -> NuGet Package Manager -> Package Manager Console
-// don`t forget choose default project in Package Manager console
-// Scaffold-DbContext "Server=WS-LV-CP2922\SQLEXPRESS;Database=forumDatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
