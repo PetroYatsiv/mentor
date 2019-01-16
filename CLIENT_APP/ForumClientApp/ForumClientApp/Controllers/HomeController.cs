@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ForumClientApp.Models;
 using ForumClientApp.Services;
 using Forum.Data.Models;
-using WebApplication1.Controllers;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
+using System.Collections;
 
 namespace ForumClientApp.Controllers
 {
@@ -24,8 +18,9 @@ namespace ForumClientApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var sectionService = _sectionService.GetSections();
-            return View();
+            var sections = _sectionService.GetSections();
+
+            return View(sections);
         }
 
         public IActionResult Privacy()

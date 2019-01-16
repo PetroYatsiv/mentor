@@ -8,11 +8,10 @@ namespace Forum.Data.Models
 {
     public class ForumDatabaseContext : DbContext
     {
-
-        public virtual DbSet<Section> Section { get; set; }
-        public virtual DbSet<Topic> Topic { get; set; }
-        public virtual DbSet<SubTopic> SubTopic { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<SubTopic> SubTopics { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
         public ForumDatabaseContext()
         {

@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Forum.Data.Migrations
 {
-    public partial class allTables : Migration
+    public partial class editPluralContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Section",
+                name: "Sections",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace Forum.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Section", x => x.Id);
+                    table.PrimaryKey("PK_Sections", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Topic",
+                name: "Topics",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -32,37 +32,37 @@ namespace Forum.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.PrimaryKey("PK_Topics", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Topic_Section",
                         column: x => x.SectionId,
-                        principalTable: "Section",
+                        principalTable: "Sections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubTopic",
+                name: "SubTopics",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    TopicId = table.Column<int>(nullable: true)
+                    TopicId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubTopic", x => x.Id);
+                    table.PrimaryKey("PK_SubTopics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubTopic_Topic_TopicId",
+                        name: "FK_SubTopics_Topics_TopicId",
                         column: x => x.TopicId,
-                        principalTable: "Topic",
+                        principalTable: "Topics",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -73,44 +73,44 @@ namespace Forum.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_SubTopic_SubTopicId",
+                        name: "FK_Comments_SubTopics_SubTopicId",
                         column: x => x.SubTopicId,
-                        principalTable: "SubTopic",
+                        principalTable: "SubTopics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_SubTopicId",
-                table: "Comment",
+                name: "IX_Comments_SubTopicId",
+                table: "Comments",
                 column: "SubTopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubTopic_TopicId",
-                table: "SubTopic",
+                name: "IX_SubTopics_TopicId",
+                table: "SubTopics",
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topic_SectionId",
-                table: "Topic",
+                name: "IX_Topics_SectionId",
+                table: "Topics",
                 column: "SectionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "SubTopic");
+                name: "SubTopics");
 
             migrationBuilder.DropTable(
-                name: "Topic");
+                name: "Topics");
 
             migrationBuilder.DropTable(
-                name: "Section");
+                name: "Sections");
         }
     }
 }

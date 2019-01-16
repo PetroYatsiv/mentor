@@ -1,4 +1,5 @@
-﻿using Forum.Data.Models;
+﻿using Forum.Data;
+using Forum.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,17 +13,25 @@ namespace Forum.WebApi.Controllers
     [ApiController]
     public class TopicController : ControllerBase
     {
+        UnitOfWork unitOfWork;
         private readonly ForumDatabaseContext _context;
 
         public TopicController(ForumDatabaseContext context)
         {
             _context = context;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
-            var values = await _context.Topic.ToListAsync();
+            var values = await _context.Topics.ToListAsync();
             return Ok(values);
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetValue(int id)
+        //{
+
+        //}
     }
 }

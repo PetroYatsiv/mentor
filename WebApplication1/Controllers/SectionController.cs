@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Forum.Data;
 using Forum.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,37 +13,28 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class SectionController : ControllerBase
     {
+        UnitOfWork unitOfWork;
         private readonly ForumDatabaseContext _context;
         public SectionController(ForumDatabaseContext context)
         {
+            unitOfWork = new UnitOfWork();
             _context = context;
         }
 
         //GET api/section
          [HttpGet]
-        public async Task<IActionResult> GetValues()
+        public IActionResult GetValues()
         {
-            var values = await _context.Section.Include(x => x.Topics).ToListAsync();
-            return Ok(values);
-            //string data = "";
-            //data = Request.Method;
-            //return Ok(data);
+            var sections = unitOfWork.Sections.GetAll();
+            return Ok(sections);
         }
-
 
         // GET api/section/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetValue(int id)
+        public IActionResult GetValue(int id)
         {
-            var value = await _context.Section.FirstOrDefaultAsync(x => x.Id == id);
+            var value = unitOfWork.Sections.Get(id);
             return Ok(value);
-        }
-
-        // GET api/section/5
-        [HttpGet("{id}/{v}")]
-        public ActionResult<string> Get(int id, string v)
-        {
-            return "value32";
         }
 
         // POST api/section
@@ -61,6 +53,7 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            unitOfWork.Sections.Delete(id);
         }
     }
 }

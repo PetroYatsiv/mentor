@@ -20,8 +20,7 @@ namespace ForumClientApp.Services
         string url = "https://localhost:44310/";
 
         public SectionService()
-        {
-           
+        {           
         }
 
         public List<Section> GetSections()

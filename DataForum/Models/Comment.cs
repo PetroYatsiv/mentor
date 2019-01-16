@@ -9,7 +9,6 @@ namespace Forum.Data.Models
         public int Id { get; set; }
         public string CommentText { get; set; }
         public DateTime CommentDate { get; set; }
-
         public SubTopic SubTopic { get; set; }
     }
 }

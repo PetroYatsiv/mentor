@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Forum.Data.Migrations
 {
     [DbContext(typeof(ForumDatabaseContext))]
-    [Migration("20181219092740_Addforeignkey")]
-    partial class Addforeignkey
+    [Migration("20190110093252_editPluralContext")]
+    partial class editPluralContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -37,7 +37,7 @@ namespace Forum.Data.Migrations
 
                     b.HasIndex("SubTopicId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Forum.Data.Models.Section", b =>
@@ -53,7 +53,7 @@ namespace Forum.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Forum.Data.Models.SubTopic", b =>
@@ -70,7 +70,7 @@ namespace Forum.Data.Migrations
 
                     b.HasIndex("TopicId");
 
-                    b.ToTable("SubTopic");
+                    b.ToTable("SubTopics");
                 });
 
             modelBuilder.Entity("Forum.Data.Models.Topic", b =>
@@ -90,7 +90,7 @@ namespace Forum.Data.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("Topic");
+                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("Forum.Data.Models.Comment", b =>
