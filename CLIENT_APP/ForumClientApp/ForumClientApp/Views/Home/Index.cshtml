@@ -9,16 +9,36 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div>
+    <button id="button">text</button>
+    <p id="date"></p>
+</div>
 <div>
     @foreach (var item in Model)
     {
     <div style="border: 1px solid; border-radius: 5px; margin: 5px; padding: 10px">
-        <p><h2> @item.SectionDescription</h2> </p><br />
+        <div style="border-bottom: 1px solid #000000"> <p><h2> @item.SectionDescription</h2> </p><br /></div>
 
         @foreach (var t in item.Topics)
         {
-        <p>@t.Description</p>
+        <div style="border-left:1px solid #000000; margin-left: 5px"></div><p>@t.Description</p>
         }
     </div>
     }
 </div>
+
+<script>   
+    $(document).ready(function () {
+    $("#button").click(getData);
+    });
+
+    function getData() {
+        var url = "Home/Index";
+
+        $.getJSON(url, function (data) {
+
+            $("#button").text(123);
+        })
+    }
+</script>

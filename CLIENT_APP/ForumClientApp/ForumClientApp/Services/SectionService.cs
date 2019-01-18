@@ -18,20 +18,20 @@ namespace ForumClientApp.Services
     {
         HttpClient client;
         string url = "https://localhost:44310/";
+        string responceData;
+        HttpResponseMessage responseMessage;
 
         public SectionService()
-        {           
-        }
-
-        public List<Section> GetSections()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            responseMessage = client.GetAsync("api/Section").Result;
+        }
 
-            var section = new List<Section>();
-            HttpResponseMessage responseMessage = client.GetAsync("api/Section").Result;
+        public List<Section> GetSections()
+        {
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -39,7 +39,7 @@ namespace ForumClientApp.Services
                 var test = JsonConvert.DeserializeObject<List<Section>>(responseData);
                 return test;
             }
-                return section;
+            return new List<Section>();
         }
     }
 }
