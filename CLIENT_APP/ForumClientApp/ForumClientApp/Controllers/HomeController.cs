@@ -23,6 +23,13 @@ namespace ForumClientApp.Controllers
             return View(sections);
         }
 
+        [HttpPost]
+        public string CreateSection(Models.Section section)
+        {
+
+            return "ok";
+        }
+
         public IActionResult Privacy()
         {
             return View();

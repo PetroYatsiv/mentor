@@ -22,7 +22,12 @@
 
         @foreach (var t in item.Topics)
         {
-        <div style="border-left:1px solid #000000; margin-left: 5px"></div><p>@t.Description</p>
+            <div style="border-left:1px solid #000000; margin-left: 5px"></div>@t.Id <p>@t.Description</p>
+        }
+        @using (Html.BeginForm("CreateSection", "Home", FormMethod.Post))
+        {
+            @Html.TextBox("SectionDescription", "Enter Section Description")
+            <p><input type="submit" value="Create" /></p>
         }
     </div>
     }

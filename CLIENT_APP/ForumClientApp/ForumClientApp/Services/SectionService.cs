@@ -12,11 +12,12 @@ namespace ForumClientApp.Services
     public interface ISectionService
     {
         List<Section> GetSections();
+        bool CreateNewSection();
     }
 
     public class SectionService : ISectionService
     {
-        HttpClient client;
+        static HttpClient client;
         string url = "https://localhost:44310/";
         string responceData;
         HttpResponseMessage responseMessage;
@@ -28,6 +29,19 @@ namespace ForumClientApp.Services
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             responseMessage = client.GetAsync("api/Section").Result;
+        }
+
+        public bool CreateNewSection()
+        {
+
+            return true;
+        }
+
+        static async Task<Uri> CreateSectionAsync(Section section)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync("api/Section", section);
+            response.EnsureSuccessStatusCode();
+            return response.Headers.Location;
         }
 
         public List<Section> GetSections()
