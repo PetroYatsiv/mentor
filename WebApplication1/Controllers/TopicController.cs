@@ -14,24 +14,27 @@ namespace Forum.WebApi.Controllers
     public class TopicController : ControllerBase
     {
         UnitOfWork unitOfWork;
-        private readonly ForumDatabaseContext _context;
-
-        public TopicController(ForumDatabaseContext context)
+        public TopicController()
         {
-            _context = context;
+            unitOfWork = new UnitOfWork();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetValues()
+        public  IActionResult GetValues()
         {
-            var values = await _context.Topics.ToListAsync();
+            var values = unitOfWork.Topics.GetAll();
             return Ok(values);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetValue(int id)
-        //{
-
-        //}
+        [HttpGet("{id}")]
+        public IActionResult GetValue(int id)
+        {
+            var topic = unitOfWork.Topics.Get(id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            return Ok(topic);
+        }
     }
 }

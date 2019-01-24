@@ -1,0 +1,16 @@
+﻿@model Forum.Data.Models.Topic
+
+
+
+
+<div style="border: 1px solid #000000; border-radius: 5px; padding: 5px;">
+    <div style="border-bottom:1px solid #000000"> 
+        <h1>@Model.Description</h1>
+    </div>
+
+
+    @foreach (var subTopic in Model.SubTopics)
+    {
+        <p>@subTopic.Description</p>
+    }
+</div>

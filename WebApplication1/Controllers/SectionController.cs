@@ -14,11 +14,9 @@ namespace WebApplication1.Controllers
     public class SectionController : ControllerBase
     {
         UnitOfWork unitOfWork;
-        private readonly ForumDatabaseContext _context;
-        public SectionController(ForumDatabaseContext context)
+        public SectionController()
         {
             unitOfWork = new UnitOfWork();
-            _context = context;
         }
 
         //GET api/section
@@ -26,6 +24,10 @@ namespace WebApplication1.Controllers
         public IActionResult GetValues()
         {
             var sections = unitOfWork.Sections.GetAll();
+            if (sections == null)
+            {
+                return NotFound();
+            }
             return Ok(sections);
         }
 
@@ -33,19 +35,23 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
-            var value = unitOfWork.Sections.Get(id);
-            return Ok(value);
+            var section = unitOfWork.Sections.Get(id);
+            if (section == null)
+            {
+                return NotFound();
+            }
+            return Ok(section);
         }
 
         // POST api/section
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Section section)
         {
         }
 
         // PUT api/section/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, Section section)
         {
         }
 

@@ -33,7 +33,6 @@ namespace ForumClientApp.Services
 
         public bool CreateNewSection()
         {
-
             return true;
         }
 
