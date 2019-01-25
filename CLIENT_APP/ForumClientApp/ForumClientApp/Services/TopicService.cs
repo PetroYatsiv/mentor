@@ -1,4 +1,4 @@
-﻿using Forum.Data.Models;
+﻿using ForumClientApp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Services
 {
-    public class TopicService
+    public interface ITopicService
+    {
+        List<TopicViewModel> GetTopics();
+        TopicViewModel GetTopic(int id);
+    }
+
+    public class TopicService :ITopicService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -20,7 +26,7 @@ namespace ForumClientApp.Services
         {
         }
 
-        public List<Topic> GetTopics()
+        public List<TopicViewModel> GetTopics()
         {
             var client = _httpClientFactory.CreateClient("TopicClient");
             var responseMessage = client.GetAsync("api/Topic").Result;
@@ -29,12 +35,13 @@ namespace ForumClientApp.Services
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                var topics = JsonConvert.DeserializeObject<List<Topic>>(responseData);
+                var topics = JsonConvert.DeserializeObject<List<TopicViewModel>>(responseData);
                 return topics;
             }
-            return new List<Topic>();
+            return new List<TopicViewModel>();
         }
-        public Topic GetTopic(int id)
+
+        public TopicViewModel GetTopic(int id)
         {
             var client = _httpClientFactory.CreateClient("TopicClient");
             var responseMessage = client.GetAsync("api/Topic/"+id+"").Result;
@@ -42,10 +49,25 @@ namespace ForumClientApp.Services
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                var topic = JsonConvert.DeserializeObject<Topic>(responseData);
+                var topic = JsonConvert.DeserializeObject<TopicViewModel>(responseData);
                 return topic;
             }
-            return new Topic();
+            return new TopicViewModel();
         }
+
+        public void CeateTopic(TopicViewModel topic)
+        {
+            var client = _httpClientFactory.CreateClient("TopicClient");
+            string stringData = JsonConvert.SerializeObject(topic);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            var responseMessage = client.PostAsync("api/Topic/", contentData).Result;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                var newTopic = JsonConvert.DeserializeObject<TopicViewModel>(responseData);
+            }
+        }
+
     }
 }

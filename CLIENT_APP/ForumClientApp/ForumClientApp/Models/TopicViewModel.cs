@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Models
 {
-    public class Topic
+    public class TopicViewModel
     {
-        public Topic()
+        public TopicViewModel()
         {
-            SubTopics = new HashSet<SubTopic>();
+            SubTopics = new HashSet<SubTopicViewModel>();
         }
         public int Id { get; set; }
         public string Description { get; set; }
         public int SectionId { get; set; }
 
-        public ICollection<SubTopic> SubTopics { get; set; }
+        public ICollection<SubTopicViewModel> SubTopics { get; set; }
 
-        public Section Section { get; set; }
+        public SectionViewModel Section { get; set; }
     }
 }

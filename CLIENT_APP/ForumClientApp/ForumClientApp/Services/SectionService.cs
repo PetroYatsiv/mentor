@@ -11,48 +11,47 @@ namespace ForumClientApp.Services
 {
     public interface ISectionService
     {
-        List<Section> GetSections();
-        bool CreateNewSection();
+        List<SectionViewModel> GetSections();
+       
     }
 
     public class SectionService : ISectionService
     {
-        static HttpClient client;
-        string url = "https://localhost:44310/";
-        string responceData;
-        HttpResponseMessage responseMessage;
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public SectionService(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
         public SectionService()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            responseMessage = client.GetAsync("api/Section").Result;
         }
 
-        public bool CreateNewSection()
+        public List<SectionViewModel> GetSections()
         {
-            return true;
-        }
+            var client = _httpClientFactory.CreateClient("SectionClient");
+            var responseMessage = client.GetAsync("api/Section").Result;
 
-        static async Task<Uri> CreateSectionAsync(Section section)
-        {
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/Section", section);
-            response.EnsureSuccessStatusCode();
-            return response.Headers.Location;
-        }
-
-        public List<Section> GetSections()
-        {
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                var test = JsonConvert.DeserializeObject<List<Section>>(responseData);
-                return test;
+                var sections = JsonConvert.DeserializeObject<List<SectionViewModel>>(responseData);
+                return sections;
             }
-            return new List<Section>();
+            return new List<SectionViewModel>();
         }
+
+        //public List<SectionViewModel> CreateNewSection(SectionViewModel section)
+        //{
+        //    var client = _httpClientFactory.CreateClient("SectionClient");
+        //    string stringData = JsonConvert.SerializeObject(section);
+        //    var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+        //    HttpResponseMessage response = client.PostAsync("", contentData).Result;
+        //    var result = response.Content;
+        //    var sections
+        //}
     }
 }

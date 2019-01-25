@@ -1,12 +1,12 @@
 ﻿@using ForumClientApp.Models
 
-@model List<Section>
+@model List<SectionViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div>
-    <form asp-controller="Home" asp-action="CreateSection" method="post">
+    <form asp-controller="Home" asp-action="Index" method="post">
         <div>
             @Html.Label("SectionDescription", "New Section Name")
             @Html.TextBox("SectionDescription")
@@ -29,7 +29,7 @@
                 </div>
             }
             <div style="border-top:1px solid #000000; padding-top: 5px; ">
-                <form asp-controller="Home" asp-action="CreateSection" method="post">
+                <form asp-controller="Topic" asp-action="CreateNewTopic" method="post">
                     <div>
                         @Html.Label("Description", "New Topic Name")
                         @Html.TextBox("Description")

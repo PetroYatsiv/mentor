@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ForumClientApp.Models;
 using ForumClientApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,13 @@ namespace ForumClientApp.Controllers
         {
           var topic =  _topicService.GetTopic(Id);
             return View(topic);
+        }
+
+        public IActionResult CreateNewTopic(TopicViewModel topic)
+        {
+
+            //_topicService.CeateTopic(newTopic);
+            return Ok();
         }
     }
 }

@@ -36,5 +36,17 @@ namespace Forum.WebApi.Controllers
             }
             return Ok(topic);
         }
+
+        // POST api/topic
+        [HttpPost]
+        public void Post(Section section)
+        {
+        }
+
+        // PUT api/topic/5
+        [HttpPut("{id}")]
+        public void Put(int id, Section section)
+        {
+        }
     }
 }
