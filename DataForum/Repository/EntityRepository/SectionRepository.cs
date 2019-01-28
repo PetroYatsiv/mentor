@@ -27,9 +27,10 @@ namespace Forum.Data.Repository.EntityRepository
             return sections;
         }
 
-        public void Create(Section item)
+        public void Create(Section section)
         {
-            _db.Sections.Add(item);
+           _db.Sections.Add(section);
+            _db.SaveChanges();
         }
 
         public void Delete(int id)
@@ -41,9 +42,9 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(Section item)
+        public void Update(int id, Section item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified; 
         }
     }
 }

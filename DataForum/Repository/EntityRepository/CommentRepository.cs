@@ -27,7 +27,7 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(Comment item)
+        public void Update(int id, Comment item)
         {
             _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }

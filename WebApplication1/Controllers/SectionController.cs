@@ -47,6 +47,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void Post(Section section)
         {
+            unitOfWork.Sections.Create(section);
         }
 
         // PUT api/section/5

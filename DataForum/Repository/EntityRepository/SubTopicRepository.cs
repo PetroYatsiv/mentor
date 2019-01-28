@@ -27,7 +27,7 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(SubTopic item)
+        public void Update(int id, SubTopic item)
         {
             _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }

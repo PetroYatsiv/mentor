@@ -45,7 +45,7 @@ namespace Forum.Data.Repository.EntityRepository
 
         
 
-        public void Update(Topic item)
+        public void Update(int id, Topic item)
         {
             _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }

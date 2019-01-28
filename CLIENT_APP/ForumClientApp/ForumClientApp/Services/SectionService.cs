@@ -6,13 +6,14 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
+using Forum.Data.Models;
 
 namespace ForumClientApp.Services
 {
     public interface ISectionService
     {
         List<SectionViewModel> GetSections();
-       
+       // List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
     }
 
     public class SectionService : ISectionService
@@ -43,15 +44,41 @@ namespace ForumClientApp.Services
             return new List<SectionViewModel>();
         }
 
-        //public List<SectionViewModel> CreateNewSection(SectionViewModel section)
-        //{
-        //    var client = _httpClientFactory.CreateClient("SectionClient");
-        //    string stringData = JsonConvert.SerializeObject(section);
-        //    var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+        public List<SectionViewModel> CreateNewSection(SectionViewModel section)
+        {
+            Section postSection = new Section();
 
-        //    HttpResponseMessage response = client.PostAsync("", contentData).Result;
-        //    var result = response.Content;
-        //    var sections
-        //}
+            postSection.SectionDescription = section.SectionDescription;
+
+            var client = _httpClientFactory.CreateClient("SectionClient");
+            string stringData = JsonConvert.SerializeObject(postSection);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = null;
+            try
+            {
+                response = client.PostAsync("api/Section", contentData).Result;
+            }
+            catch (Exception ex)
+            {
+                var postException = ex.Message;
+            }
+
+            string content = response.Content.ReadAsStringAsync().ToString();
+
+            return new List<SectionViewModel>();
+        }
+
+
+
+        public void UpdateSection(int sectionId, SectionViewModel updatedSection)
+        {
+
+        }
+
+        public void DeleteSection (int sectionId)
+        {
+
+        }
     }
 }

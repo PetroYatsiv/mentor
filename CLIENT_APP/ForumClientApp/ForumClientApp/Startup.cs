@@ -35,8 +35,8 @@ namespace ForumClientApp
             });
 
             services.AddAutoMapper();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.AddHttpClient("TopicClient", client => {
                 client.BaseAddress = new Uri("https://localhost:44310/");
             });
