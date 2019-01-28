@@ -30,7 +30,7 @@ namespace ForumClientApp.Controllers
         public IActionResult CreateNewTopic(TopicViewModel topic)
         {
             _topicService.CeateNewTopic(topic);
-            return Ok();
+            return RedirectToAction("Index","Home");
         }
     }
 }

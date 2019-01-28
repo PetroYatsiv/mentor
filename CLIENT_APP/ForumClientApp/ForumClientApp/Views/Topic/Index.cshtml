@@ -1,20 +1,29 @@
 ﻿@model ForumClientApp.Models.TopicViewModel
 
-
+<style>
+    #close {
+        float: right;
+        display: inline-block;
+        padding: 2px 5px;
+        background: #ccc;
+        cursor: pointer;
+    }
+</style>
 
 
 <div style="border: 1px solid #000000; border-radius: 5px; padding: 5px;">
-    <div style="border-bottom:1px solid #000000"> 
+    <span id='close'>x</span>
+    <div style="border-bottom:1px solid #000000">
         <h1>Topic:@Model.Id - @Model.Description</h1>
     </div>
 
 
     @foreach (var subTopic in Model.SubTopics)
     {
-    <div>
-        <a asp-controller=""
-           asp-action=""
-           asp-route-id="">Sub-Topic:@subTopic.Id: -@subTopic.Description</a>
-    </div>
+        <div>
+            <a asp-controller=""
+               asp-action=""
+               asp-route-id="">Sub-Topic:@subTopic.Id: -@subTopic.Description</a>
+        </div>
     }
 </div>
