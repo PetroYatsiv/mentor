@@ -29,8 +29,7 @@ namespace ForumClientApp.Controllers
 
         public IActionResult CreateNewTopic(TopicViewModel topic)
         {
-
-            //_topicService.CeateTopic(newTopic);
+            _topicService.CeateNewTopic(topic);
             return Ok();
         }
     }

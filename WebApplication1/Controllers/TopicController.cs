@@ -13,7 +13,7 @@ namespace Forum.WebApi.Controllers
     [ApiController]
     public class TopicController : ControllerBase
     {
-        UnitOfWork unitOfWork;
+        private UnitOfWork unitOfWork;
         public TopicController()
         {
             unitOfWork = new UnitOfWork();
@@ -39,8 +39,9 @@ namespace Forum.WebApi.Controllers
 
         // POST api/topic
         [HttpPost]
-        public void Post(Section section)
+        public void Post(Topic section)
         {
+            unitOfWork.Topics.Create(section);
         }
 
         // PUT api/topic/5

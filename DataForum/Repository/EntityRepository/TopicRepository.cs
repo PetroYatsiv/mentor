@@ -30,6 +30,7 @@ namespace Forum.Data.Repository.EntityRepository
         public void Create(Topic item)
         {
             _db.Topics.Add(item);
+            _db.SaveChanges();
         }
 
         public void Delete(int id)

@@ -1,4 +1,5 @@
-﻿using ForumClientApp.Models;
+﻿using Forum.Data.Models;
+using ForumClientApp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -55,18 +56,27 @@ namespace ForumClientApp.Services
             return new TopicViewModel();
         }
 
-        public void CeateTopic(TopicViewModel topic)
+        public List<SectionViewModel> CeateNewTopic(TopicViewModel topic)
         {
+            Topic newTopic = new Topic();
+            newTopic.Description = topic.Description;
+            newTopic.SectionId = topic.SectionId;
+
             var client = _httpClientFactory.CreateClient("TopicClient");
-            string stringData = JsonConvert.SerializeObject(topic);
+            string stringData = JsonConvert.SerializeObject(newTopic);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            var responseMessage = client.PostAsync("api/Topic/", contentData).Result;
-            if (responseMessage.IsSuccessStatusCode)
+            HttpResponseMessage response = null;
+            try
             {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                var newTopic = JsonConvert.DeserializeObject<TopicViewModel>(responseData);
+                response = client.PostAsync("api/Topic", contentData).Result;
             }
+            catch (Exception ex)
+            {
+                var postException = ex.Message;
+            }
+            string content = response.Content.ReadAsStringAsync().ToString();
+            return new List<SectionViewModel>();
         }
 
     }

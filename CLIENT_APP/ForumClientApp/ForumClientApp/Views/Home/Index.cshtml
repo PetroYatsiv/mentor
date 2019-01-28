@@ -31,8 +31,10 @@
             <div style="border-top:1px solid #000000; padding-top: 5px; ">
                 <form asp-controller="Topic" asp-action="CreateNewTopic" method="post">
                     <div>
+                        <input type="hidden" value="@item.Id" name="SectionId" />
                         @Html.Label("Description", "New Topic Name")
                         @Html.TextBox("Description")
+
                         <input type="submit" value="Create new topic" />
                     </div>
                 </form>

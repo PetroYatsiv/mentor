@@ -13,7 +13,7 @@ namespace ForumClientApp.Services
     public interface ISectionService
     {
         List<SectionViewModel> GetSections();
-       // List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
+       List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
     }
 
     public class SectionService : ISectionService
@@ -71,7 +71,7 @@ namespace ForumClientApp.Services
 
 
 
-        public void UpdateSection(int sectionId, SectionViewModel updatedSection)
+        public void UpdateSection(int sectionId, SectionViewModel section)
         {
 
         }
