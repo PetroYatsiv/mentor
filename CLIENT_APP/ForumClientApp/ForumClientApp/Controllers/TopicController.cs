@@ -32,5 +32,11 @@ namespace ForumClientApp.Controllers
             _topicService.CeateNewTopic(topic);
             return RedirectToAction("Index","Home");
         }
+
+        public IActionResult DeleteTopic(int id)
+        {
+            _topicService.DeleteTopic(id);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

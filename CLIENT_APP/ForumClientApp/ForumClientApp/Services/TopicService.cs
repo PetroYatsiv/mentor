@@ -63,7 +63,7 @@ namespace ForumClientApp.Services
             newTopic.SectionId = topic.SectionId;
 
             var client = _httpClientFactory.CreateClient("TopicClient");
-            string stringData = JsonConvert.SerializeObject(newTopic);
+            string stringData = JsonConvert.SerializeObject(topic);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
@@ -79,5 +79,10 @@ namespace ForumClientApp.Services
             return new List<SectionViewModel>();
         }
 
+        public List<SectionViewModel> DeleteTopic(int id)
+        {
+
+            return new List<SectionViewModel>();
+        }
     }
 }

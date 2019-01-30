@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-
+                <hr />
                 <div class="col-md-12">
                     <div class="container">
                         <table class="table table-striped">
@@ -68,12 +68,12 @@
                                         <td>
                                             <a asp-controller="Topic"
                                                asp-action="Index"
-                                               asp-route-id="@topic.Id"><span><strong>@topic.Description</strong></span></a>
+                                               asp-route-id="@topic.Id" ><span><strong>@topic.Description</strong></span></a>
                                         </td>
-
-                                        @*<td><span><strong>@topic.Description</strong></span></td>*@
                                         <td>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <a asp-controller="Topic"
+                                               asp-action="DeleteTopic"
+                                               asp-route-id="@topic.Id" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 }
@@ -81,7 +81,7 @@
                         </table>
                     </div>
                 </div>
-
+                <hr />
                 <div class="container">
                     <div class="alert alert-success">
                         <form asp-controller="Topic" asp-action="CreateNewTopic" method="post">
