@@ -39,6 +39,7 @@ namespace Forum.Data.Repository.EntityRepository
             if (section != null)
             {
                 _db.Sections.Remove(section);
+                _db.SaveChanges();
             }
         }
 

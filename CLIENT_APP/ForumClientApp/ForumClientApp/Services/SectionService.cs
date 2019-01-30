@@ -13,25 +13,25 @@ namespace ForumClientApp.Services
     public interface ISectionService
     {
         List<SectionViewModel> GetSections();
-       List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
+        List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
+        List<SectionViewModel> DeleteSection(int id);
     }
 
     public class SectionService : ISectionService
     {
+        private readonly HttpClient client;
         private readonly IHttpClientFactory _httpClientFactory;
-
         public SectionService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
+            client = _httpClientFactory.CreateClient(Clients.SectionClient);
         }
-
         public SectionService()
         {
         }
 
         public List<SectionViewModel> GetSections()
         {
-            var client = _httpClientFactory.CreateClient("SectionClient");
             var responseMessage = client.GetAsync("api/Section").Result;
 
             if (responseMessage.IsSuccessStatusCode)
@@ -46,12 +46,7 @@ namespace ForumClientApp.Services
 
         public List<SectionViewModel> CreateNewSection(SectionViewModel section)
         {
-            Section postSection = new Section();
-
-            postSection.SectionDescription = section.SectionDescription;
-
-            var client = _httpClientFactory.CreateClient("SectionClient");
-            string stringData = JsonConvert.SerializeObject(postSection);
+            string stringData = JsonConvert.SerializeObject(section);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
@@ -69,16 +64,16 @@ namespace ForumClientApp.Services
             return new List<SectionViewModel>();
         }
 
-
-
         public void UpdateSection(int sectionId, SectionViewModel section)
         {
 
         }
 
-        public void DeleteSection (int sectionId)
+        public List<SectionViewModel> DeleteSection (int sectionId)
         {
-
+            HttpResponseMessage response = null;
+            response = client.DeleteAsync("api/Section/"+sectionId+"").Result;
+            return new List<SectionViewModel>();
         }
     }
 }

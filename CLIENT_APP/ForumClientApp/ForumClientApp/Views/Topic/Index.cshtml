@@ -26,4 +26,17 @@
                asp-route-id="">Sub-Topic:@subTopic.Id: -@subTopic.Description</a>
         </div>
     }
+    <div style="border-top:1px solid #000000; padding-top: 5px; ">
+        <form asp-controller="SubTopic" asp-action="CreateNewSubTopic" method="post">
+            <div>
+                <input type="hidden" value="@Model.Id" name="TopicId" />
+                @Html.Label("Description", "New Topic Name")
+                @Html.TextBox("Description")
+
+                <input type="submit" value="Create new Sub Topic" />
+            </div>
+        </form>
+    </div>
+
+
 </div>
