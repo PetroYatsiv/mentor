@@ -16,23 +16,32 @@ namespace ForumClientApp.Services
        List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
     }
 
-    public class SectionService : ISectionService
+    public class ServiceBase
+    {
+        protected readonly HttpClient _httpClient;
+
+        protected ServiceBase(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+    }
+    public class SectionService : ServiceBase, IService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public SectionService(IHttpClientFactory httpClientFactory)
+        //public SectionService(IHttpClientFactory httpClientFactory)
+        //{
+        //    _httpClientFactory = httpClientFactory;
+        //}
+
+        public SectionService(HttpClient clientName): base(clientName)
         {
-            _httpClientFactory = httpClientFactory;
         }
 
-        public SectionService()
-        {
-        }
-
-        public List<SectionViewModel> GetSections()
+        public async Task<List<SectionViewModel>> GetSectionsAsync()
         {
             var client = _httpClientFactory.CreateClient("SectionClient");
-            var responseMessage = client.GetAsync("api/Section").Result;
+            var responseMessage = await client.GetAsync("api/Section");
 
             if (responseMessage.IsSuccessStatusCode)
             {

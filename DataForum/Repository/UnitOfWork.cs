@@ -6,7 +6,13 @@ using System.Text;
 
 namespace Forum.Data
 {
-    public class UnitOfWork : IDisposable
+    interface IUnitOfWork
+    {
+
+    }
+
+
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private ForumDatabaseContext db = new ForumDatabaseContext();
 

@@ -13,17 +13,19 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class SectionController : ControllerBase
     {
-        UnitOfWork unitOfWork;
-        public SectionController()
+        private readonly UnitOfWork _unitOfWork;
+        public SectionController(UnitOfWork unitOfWork)
         {
-            unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork; 
+            //TODO: inject repository of work to controller
+            //
         }
 
         //GET api/section
          [HttpGet]
         public IActionResult GetValues()
         {
-            var sections = unitOfWork.Sections.GetAll();
+            var sections = _unitOfWork.Sections.GetAll();
             if (sections == null)
             {
                 return NotFound();
@@ -35,7 +37,7 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
-            var section = unitOfWork.Sections.Get(id);
+            var section = _unitOfWork.Sections.Get(id);
             if (section == null)
             {
                 return NotFound();
@@ -47,7 +49,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void Post(Section section)
         {
-            unitOfWork.Sections.Create(section);
+            _unitOfWork.Sections.Create(section);
+            _unitOfWork.Save();
         }
 
         // PUT api/section/5
@@ -60,7 +63,7 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            unitOfWork.Sections.Delete(id);
+            _unitOfWork.Sections.Delete(id);
         }
     }
 }
