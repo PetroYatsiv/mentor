@@ -13,12 +13,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class SectionController : ControllerBase
     {
-        private readonly UnitOfWork _unitOfWork;
+       private UnitOfWork _unitOfWork;
         public SectionController(UnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork; 
-            //TODO: inject repository of work to controller
-            //
+            _unitOfWork = unitOfWork;
         }
 
         //GET api/section
@@ -64,6 +62,7 @@ namespace WebApplication1.Controllers
         public void Delete(int id)
         {
             _unitOfWork.Sections.Delete(id);
+            _unitOfWork.Save();
         }
     }
 }

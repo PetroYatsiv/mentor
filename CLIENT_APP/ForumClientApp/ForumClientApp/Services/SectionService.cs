@@ -7,41 +7,19 @@ using System.Threading.Tasks;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
 using Forum.Data.Models;
+using ForumClientApp.Contracts;
 
 namespace ForumClientApp.Services
 {
-    public interface ISectionService
+    public class SectionService :  ServiceBase, ISectionService
     {
-        List<SectionViewModel> GetSections();
-       List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
-    }
-
-    public class ServiceBase
-    {
-        protected readonly HttpClient _httpClient;
-
-        protected ServiceBase(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
-    }
-    public class SectionService : ServiceBase, IService
-    {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public SectionService(IHttpClientFactory httpClientFactory)
-        //{
-        //    _httpClientFactory = httpClientFactory;
-        //}
-
-        public SectionService(HttpClient clientName): base(clientName)
+        public SectionService(IHttpClientFactory clientFactory) : base(clientFactory, Clients.SectionClient)
         {
         }
 
-        public async Task<List<SectionViewModel>> GetSectionsAsync()
+        public List<SectionViewModel> GetSections()
         {
-            var client = _httpClientFactory.CreateClient("SectionClient");
-            var responseMessage = await client.GetAsync("api/Section");
+            var responseMessage = _client.GetAsync("api/Section").Result;
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -55,18 +33,13 @@ namespace ForumClientApp.Services
 
         public List<SectionViewModel> CreateNewSection(SectionViewModel section)
         {
-            Section postSection = new Section();
-
-            postSection.SectionDescription = section.SectionDescription;
-
-            var client = _httpClientFactory.CreateClient("SectionClient");
-            string stringData = JsonConvert.SerializeObject(postSection);
+            string stringData = JsonConvert.SerializeObject(section);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
             try
             {
-                response = client.PostAsync("api/Section", contentData).Result;
+                response = _client.PostAsync("api/Section", contentData).Result;
             }
             catch (Exception ex)
             {
@@ -78,16 +51,16 @@ namespace ForumClientApp.Services
             return new List<SectionViewModel>();
         }
 
-
-
         public void UpdateSection(int sectionId, SectionViewModel section)
         {
 
         }
 
-        public void DeleteSection (int sectionId)
+        public List<SectionViewModel> DeleteSection (int sectionId)
         {
-
+            HttpResponseMessage response = null;
+            response = _client.DeleteAsync("api/Section/"+sectionId+"").Result;
+            return new List<SectionViewModel>();
         }
     }
 }

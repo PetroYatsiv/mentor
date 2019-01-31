@@ -1,22 +1,55 @@
 ﻿@model ForumClientApp.Models.TopicViewModel
 
-<style>
-    #close {
-        float: right;
-        display: inline-block;
-        padding: 2px 5px;
-        background: #ccc;
-        cursor: pointer;
-    }
-</style>
 
+<div class="container">
+    <div class="alert alert-success">
+        <h4 class="alert-heading">Topic:@Model.Id - @Model.Description</h4>
+    </div>
+
+    <div class="alert alert-secondary">
+        <div class="container">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subTopic in @Model.SubTopics)
+                    {
+                        <tr>
+                            <th>Id - @subTopic.Id</th>
+                            <td>@subTopic.Description</td>
+                            <td><a class="btn btn-danger">Delete</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <div class="alert alert-success">
+                <form asp-controller="Topic" asp-action="CreateNewSubTopic" method="post">
+                    <div>
+                        <input type="hidden" value="@Model.Id" name="TopicId" />
+                        @Html.Label("Description", "New Topic Name")
+                        @Html.TextBox("Description")
+                        <input type="submit" value="Create new topic" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <div style="border: 1px solid #000000; border-radius: 5px; padding: 5px;">
     <span id='close'>x</span>
     <div style="border-bottom:1px solid #000000">
         <h1>Topic:@Model.Id - @Model.Description</h1>
     </div>
-
 
     @foreach (var subTopic in Model.SubTopics)
     {
@@ -26,4 +59,15 @@
                asp-route-id="">Sub-Topic:@subTopic.Id: -@subTopic.Description</a>
         </div>
     }
+    <div style="border-top:1px solid #000000; padding-top: 5px; ">
+        <form asp-controller="SubTopic" asp-action="CreateNewSubTopic" method="post">
+            <div>
+                <input type="hidden" value="@Model.Id" name="TopicId" />
+                @Html.Label("Description", "New Topic Name")
+                @Html.TextBox("Description")
+
+                <input type="submit" value="Create new Sub Topic" />
+            </div>
+        </form>
+    </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using Forum.Data.Models;
+using ForumClientApp.Contracts;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
 using System;
@@ -9,13 +10,7 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Services
 {
-    public interface ITopicService
-    {
-        List<TopicViewModel> GetTopics();
-        TopicViewModel GetTopic(int id);
-    }
-
-    public class TopicService :ITopicService
+    public class TopicService : ITopicService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -63,7 +58,7 @@ namespace ForumClientApp.Services
             newTopic.SectionId = topic.SectionId;
 
             var client = _httpClientFactory.CreateClient("TopicClient");
-            string stringData = JsonConvert.SerializeObject(newTopic);
+            string stringData = JsonConvert.SerializeObject(topic);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
@@ -79,5 +74,10 @@ namespace ForumClientApp.Services
             return new List<SectionViewModel>();
         }
 
+        public List<SectionViewModel> DeleteTopic(int id)
+        {
+
+            return new List<SectionViewModel>();
+        }
     }
 }

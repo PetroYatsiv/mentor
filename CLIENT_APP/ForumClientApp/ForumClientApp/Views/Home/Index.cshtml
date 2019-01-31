@@ -6,66 +6,97 @@
 }
 
 <style>
-    #close {
+    .alert-danger .btn-danger {
         float: right;
-        display: inline-block;
-        padding: 2px 5px;
-        background: #ccc;
-        cursor: pointer;
     }
-    
+
+    .alert-danger span {
+        line-height: 35px;
+    }
+
+    .alert-danger > div:after {
+        clear: both;
+        content: '';
+        display: table;
+    }
 </style>
 
-<div>
-    <form asp-controller="Home" asp-action="AddNewSection" method="post">
-        <div>
-            @Html.Label("SectionDescription", "New Section Name")
-            @Html.TextBox("SectionDescription")
-            <input type="submit" value="Creare new section" />
-        </div>
-    </form>
-</div>
-<div>
-    @foreach (var item in Model)
-    {
-    <div style="border: 1px solid; border-radius: 5px; margin: 5px; padding: 10px">
-        <span id='close'>x</span>
-        <div style="border-bottom: 1px solid #000000"><p> <h2> section:@item.Id - @item.SectionDescription</h2> </p><br /></div>
+<div class="container">
+    <div class="alert alert-success">
+        <form asp-controller="Home" asp-action="AddNewSection" method="post">
+            <div>
+                @Html.Label("SectionDescription", "New Section Name")
+                @Html.TextBox("SectionDescription")
+                <input type="submit" value="Creare new section" />
+            </div>
+        </form>
+    </div>
 
-        @foreach (var t in item.Topics)
+    <div>
+        @foreach (var item in Model)
         {
-        <div>
-            <a asp-controller="Topic"
-               asp-action="Index"
-               asp-route-id="@t.Id">topic:@t.Id-@t.Description</a>
-        </div>
-        }
-        <div style="border-top:1px solid #000000; padding-top: 5px; ">
-            <form asp-controller="Topic" asp-action="CreateNewTopic" method="post">
-                <div>
-                    <input type="hidden" value="@item.Id" name="SectionId" />
-                    @Html.Label("Description", "New Topic Name")
-                    @Html.TextBox("Description")
+            <div class="alert alert-secondary">
 
-                    <input type="submit" value="Create new topic" />
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            <div>
+                                <span><strong>section:@item.Id - @item.SectionDescription</strong></span>
+                                <a asp-controller="Home"
+                                   asp-action="DeleteSection"
+                                   asp-route-id="@item.Id" class="btn btn-danger float-right">Delete</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
+                <hr />
+                <div class="col-md-12">
+                    <div class="container">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Topic</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var topic in item.Topics)
+                                {
+                                    <tr>
+                                        <th>Id - @topic.Id</th>
+                                        <td>
+                                            <a asp-controller="Topic"
+                                               asp-action="Index"
+                                               asp-route-id="@topic.Id" ><span><strong>@topic.Description</strong></span></a>
+                                        </td>
+                                        <td>
+                                            <a asp-controller="Topic"
+                                               asp-action="DeleteTopic"
+                                               asp-route-id="@topic.Id" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+                <div class="container">
+                    <div class="alert alert-success">
+                        <form asp-controller="Topic" asp-action="CreateNewTopic" method="post">
+                            <div>
+                                <input type="hidden" value="@item.Id" name="SectionId" />
+                                @Html.Label("Description", "New Topic Name")
+                                @Html.TextBox("Description")
+                                <input type="submit" value="Create new topic" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        }
     </div>
-            }
-    </div>
+</div>
 
-<script>
-    $(document).ready(function () {
-        $("#button").click(getData);
-    });
-
-    function getData() {
-        var url = "Home/Index";
-
-        $.getJSON(url, function (data) {
-
-            $("#button").text(123);
-        })
-    }
-</script>

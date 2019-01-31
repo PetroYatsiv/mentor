@@ -33,5 +33,11 @@ namespace ForumClientApp.Controllers
             _sectionService.CreateNewSection(section);
             return RedirectToAction("Index");
         }
+
+        public IActionResult DeleteSection(int id)
+        {
+            _sectionService.DeleteSection(id);
+            return RedirectToAction("Index");
+        }
     }
 }
