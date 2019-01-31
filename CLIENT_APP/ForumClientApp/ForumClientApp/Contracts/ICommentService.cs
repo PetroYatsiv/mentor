@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ForumClientApp.Contracts;
 
-namespace ForumClientApp.Services
+namespace ForumClientApp.Contracts
 {
-    public class SubTopicService : ISubtopicService
+    interface ICommentService
     {
 
     }

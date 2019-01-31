@@ -1,4 +1,5 @@
 ﻿using Forum.Data.Models;
+using ForumClientApp.Contracts;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
 using System;
@@ -9,13 +10,7 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Services
 {
-    public interface ITopicService
-    {
-        List<TopicViewModel> GetTopics();
-        TopicViewModel GetTopic(int id);
-    }
-
-    public class TopicService :ITopicService
+    public class TopicService : ITopicService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 

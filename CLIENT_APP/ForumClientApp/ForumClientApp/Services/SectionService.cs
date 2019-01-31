@@ -7,32 +7,19 @@ using System.Threading.Tasks;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
 using Forum.Data.Models;
+using ForumClientApp.Contracts;
 
 namespace ForumClientApp.Services
 {
-    public interface ISectionService
+    public class SectionService :  ServiceBase, ISectionService
     {
-        List<SectionViewModel> GetSections();
-        List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
-        List<SectionViewModel> DeleteSection(int id);
-    }
-
-    public class SectionService : ISectionService
-    {
-        private readonly HttpClient client;
-        private readonly IHttpClientFactory _httpClientFactory;
-        public SectionService(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-            client = _httpClientFactory.CreateClient(Clients.SectionClient);
-        }
-        public SectionService()
+        public SectionService(IHttpClientFactory clientFactory) : base(clientFactory, Clients.SectionClient)
         {
         }
 
         public List<SectionViewModel> GetSections()
         {
-            var responseMessage = client.GetAsync("api/Section").Result;
+            var responseMessage = _client.GetAsync("api/Section").Result;
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -52,7 +39,7 @@ namespace ForumClientApp.Services
             HttpResponseMessage response = null;
             try
             {
-                response = client.PostAsync("api/Section", contentData).Result;
+                response = _client.PostAsync("api/Section", contentData).Result;
             }
             catch (Exception ex)
             {
@@ -72,7 +59,7 @@ namespace ForumClientApp.Services
         public List<SectionViewModel> DeleteSection (int sectionId)
         {
             HttpResponseMessage response = null;
-            response = client.DeleteAsync("api/Section/"+sectionId+"").Result;
+            response = _client.DeleteAsync("api/Section/"+sectionId+"").Result;
             return new List<SectionViewModel>();
         }
     }

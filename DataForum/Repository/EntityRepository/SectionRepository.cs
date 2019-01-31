@@ -30,7 +30,6 @@ namespace Forum.Data.Repository.EntityRepository
         public void Create(Section section)
         {
            _db.Sections.Add(section);
-            _db.SaveChanges();
         }
 
         public void Delete(int id)
@@ -39,7 +38,6 @@ namespace Forum.Data.Repository.EntityRepository
             if (section != null)
             {
                 _db.Sections.Remove(section);
-                _db.SaveChanges();
             }
         }
 

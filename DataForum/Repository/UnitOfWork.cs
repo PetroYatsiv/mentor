@@ -8,7 +8,7 @@ namespace Forum.Data
 {
     public class UnitOfWork : IDisposable
     {
-        private ForumDatabaseContext db = new ForumDatabaseContext();
+        private ForumDatabaseContext _db = new ForumDatabaseContext();
 
         private SectionRepository _sectionRepository;
         private TopicRepository _topicRepository;
@@ -20,7 +20,7 @@ namespace Forum.Data
             get
             {
                 if (_sectionRepository == null)
-                    _sectionRepository = new SectionRepository(db);
+                    _sectionRepository = new SectionRepository(_db);
                     return _sectionRepository;
             }
         }
@@ -30,7 +30,7 @@ namespace Forum.Data
             get
             {
                 if (_topicRepository == null)
-                    _topicRepository = new TopicRepository(db);
+                    _topicRepository = new TopicRepository(_db);
                 return _topicRepository;
             }
         }
@@ -40,7 +40,7 @@ namespace Forum.Data
             get
             {
                 if (_subTopicRepository == null)
-                    _subTopicRepository = new SubTopicRepository(db);
+                    _subTopicRepository = new SubTopicRepository(_db);
                 return _subTopicRepository;
             }
         }
@@ -50,14 +50,14 @@ namespace Forum.Data
             get
             {
                 if (_commentRepository == null)
-                    _commentRepository = new CommentRepository(db);
+                    _commentRepository = new CommentRepository(_db);
                 return _commentRepository;
             }
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         private bool disposed = false;
@@ -67,7 +67,7 @@ namespace Forum.Data
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
                 disposed = true;
             }
