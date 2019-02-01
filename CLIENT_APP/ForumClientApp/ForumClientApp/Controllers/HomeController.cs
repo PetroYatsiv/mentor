@@ -16,13 +16,11 @@ namespace ForumClientApp.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly SectionService _sectionService;
-        private readonly IMapper _mapper;
 
-        public HomeController(IHttpClientFactory clientFactory, IMapper mapper )
+        public HomeController(IHttpClientFactory clientFactory)
         {
             _httpClientFactory = clientFactory;
             _sectionService = new SectionService(_httpClientFactory);
-            _mapper = mapper;
         }
 
         public IActionResult Index()
