@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Forum.Data.Models;
+using ForumClientApp;
 using ForumClientApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,8 +21,6 @@ namespace ForumClientApp
 
 public class Startup
 {
-    string url = "https://localhost:44310/";
-
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
@@ -39,11 +38,11 @@ public class Startup
             options.MinimumSameSitePolicy = SameSiteMode.None;
         });
 
+        services.ConfigureHttpClients();
         services.AddAutoMapper();
         services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-        services.AddHttpClient(Clients.TopicClient, client => { client.BaseAddress = new Uri(url); });
-        services.AddHttpClient(Clients.SectionClient, client => { client.BaseAddress = new Uri(url); });
+       
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
