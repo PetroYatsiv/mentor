@@ -7,6 +7,8 @@ using Forum.Data.Models;
 using System.Collections;
 using System.Net.Http;
 using AutoMapper;
+using System;
+using System.Collections.Generic;
 
 namespace ForumClientApp.Controllers
 {
@@ -25,7 +27,19 @@ namespace ForumClientApp.Controllers
 
         public IActionResult Index()
         {
-            var sections = _sectionService.GetSections();
+            List<SectionViewModel> sections = new List<SectionViewModel>();
+            try
+            {
+                sections = _sectionService.GetSections();
+                if (sections == null)
+                {
+                    return NoContent();//204 status code
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
             return View(sections);
         }
         public IActionResult AddNewSection(SectionViewModel section)
