@@ -41,8 +41,10 @@ public class Startup
         });
 
         services.ConfigureHttpClients();
+
         services.AddScoped<ISectionService, SectionService>();
-        services.AddAutoMapper();
+        services.AddScoped<ITopicService, TopicService>();
+
         services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
     }
 

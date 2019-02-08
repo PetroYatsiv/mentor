@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ForumClientApp.Contracts;
 using ForumClientApp.Models;
 using ForumClientApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,10 @@ namespace ForumClientApp.Controllers
 {
     public class TopicController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly TopicService _topicService;
-        public TopicController(IHttpClientFactory httpClientFactory)
+        private readonly ITopicService _topicService;
+        public TopicController(ITopicService topicService)
         {
-            _httpClientFactory = httpClientFactory;
-            _topicService = new TopicService(_httpClientFactory);
+            _topicService = topicService;
         }
         // GET: /<controller>/
         public IActionResult Index(int Id)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Contracts
 {
-    interface ITopicService
+    public interface ITopicService
     {
         List<TopicViewModel> GetTopics();
         TopicViewModel GetTopic(int id);
