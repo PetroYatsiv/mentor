@@ -9,18 +9,17 @@ using System.Net.Http;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using ForumClientApp.Contracts;
 
 namespace ForumClientApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly SectionService _sectionService;
+        private readonly ISectionService _sectionService;
 
-        public HomeController(IHttpClientFactory clientFactory)
+        public HomeController(ISectionService sectionService)
         {
-            _httpClientFactory = clientFactory;
-            _sectionService = new SectionService(_httpClientFactory);
+            _sectionService = sectionService;
         }
 
         public IActionResult Index()

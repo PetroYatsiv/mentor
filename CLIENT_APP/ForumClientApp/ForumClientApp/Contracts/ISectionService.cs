@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Contracts
 {
-    interface ISectionService
+    public interface ISectionService
     {
         List<SectionViewModel> GetSections();
         List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
