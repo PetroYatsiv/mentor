@@ -41,9 +41,10 @@ public class Startup
         });
 
         services.ConfigureHttpClients();
-
         services.AddScoped<ISectionService, SectionService>();
         services.AddScoped<ITopicService, TopicService>();
+        services.AddScoped<ISubtopicService, SubTopicService>();
+        services.AddScoped<ICommentService, CommentsService>();
 
         services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
     }

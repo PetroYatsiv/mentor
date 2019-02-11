@@ -11,5 +11,6 @@ namespace ForumClientApp.Contracts
         List<SectionViewModel> GetSections();
         List<SectionViewModel> CreateNewSection(SectionViewModel sectionViewModel);
         List<SectionViewModel> DeleteSection(int id);
+        List<SectionViewModel> UpdateSection(int id, SectionViewModel section);
     }
 }

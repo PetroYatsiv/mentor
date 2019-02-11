@@ -15,6 +15,8 @@ namespace ForumClientApp
         {
             services.AddHttpClient(Clients.TopicClient, client => { client.BaseAddress = new Uri(url); });
             services.AddHttpClient(Clients.SectionClient, client => { client.BaseAddress = new Uri(url); });
+            services.AddHttpClient(Clients.SubTopicClient, client => { client.BaseAddress = new Uri(url); });
+            services.AddHttpClient(Clients.CommentClient, client => { client.BaseAddress = new Uri(url); });
         }
     }
 }

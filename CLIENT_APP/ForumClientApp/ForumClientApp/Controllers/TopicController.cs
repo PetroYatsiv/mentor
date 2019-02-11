@@ -19,6 +19,7 @@ namespace ForumClientApp.Controllers
         {
             _topicService = topicService;
         }
+
         // GET: /<controller>/
         public IActionResult Index(int Id)
         {
@@ -30,6 +31,12 @@ namespace ForumClientApp.Controllers
         {
             _topicService.CeateNewTopic(topic);
             return RedirectToAction("Index","Home");
+        }
+
+        public IActionResult UpdateTopic(int id, TopicViewModel topic)
+        {
+            _topicService.UpdateTopic(id, topic);
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult DeleteTopic(int id)

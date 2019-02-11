@@ -16,11 +16,9 @@ namespace ForumClientApp.Services
         public SectionService(IHttpClientFactory clientFactory) : base(clientFactory, Clients.SectionClient)
         {
         }
-
         public List<SectionViewModel> GetSections()
         {
             var responseMessage = _client.GetAsync("api/Section").Result;
-
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -35,7 +33,6 @@ namespace ForumClientApp.Services
         {
             string stringData = JsonConvert.SerializeObject(section);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
-
             HttpResponseMessage response = null;
             try
             {
@@ -45,15 +42,18 @@ namespace ForumClientApp.Services
             {
                 var postException = ex.Message;
             }
-
             string content = response.Content.ReadAsStringAsync().ToString();
-
             return new List<SectionViewModel>();
         }
 
-        public void UpdateSection(int sectionId, SectionViewModel section)
+        public List<SectionViewModel> UpdateSection(int sectionId, SectionViewModel section)
         {
+            string stringData = JsonConvert.SerializeObject(section);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
+            HttpResponseMessage responce = _client.PutAsync("api/Section/" + sectionId + "", contentData).Result;
+
+            return new List<SectionViewModel>();
         }
 
         public List<SectionViewModel> DeleteSection (int sectionId)

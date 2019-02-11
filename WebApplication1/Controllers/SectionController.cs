@@ -55,6 +55,8 @@ namespace WebApplication1.Controllers
         [HttpPut("{id}")]
         public void Put(int id, Section section)
         {
+            _unitOfWork.Sections.Update(id, section);
+            _unitOfWork.Save();
         }
 
         // DELETE api/section/5

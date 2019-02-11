@@ -31,10 +31,15 @@ namespace XUnitTestProject1
         [Fact]
         public void TestSectionService()
         {
-            //var sectionService = new Mock<HttpClientFactory>();
+            //Arrange
 
 
-            //var result = sectionService.ge
+            //Act
+
+
+            //Assert
+
+
         }
     }
 }

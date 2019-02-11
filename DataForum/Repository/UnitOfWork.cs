@@ -8,9 +8,7 @@ namespace Forum.Data
 {
     interface IUnitOfWork
     {
-
     }
-
 
     public class UnitOfWork : IDisposable, IUnitOfWork
     {

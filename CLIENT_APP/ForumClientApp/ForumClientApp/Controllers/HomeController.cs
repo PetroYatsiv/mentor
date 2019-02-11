@@ -50,5 +50,11 @@ namespace ForumClientApp.Controllers
             _sectionService.DeleteSection(id);
             return RedirectToAction("Index");
         }
+
+        public IActionResult EditSection(int id, SectionViewModel section)
+        {
+            _sectionService.UpdateSection(id, section);
+            return RedirectToAction("Index");
+        }
     }
 }

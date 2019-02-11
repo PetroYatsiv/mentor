@@ -10,18 +10,12 @@ using System.Threading.Tasks;
 
 namespace ForumClientApp.Services
 {
-    public class TopicService : ITopicService
+    public class TopicService : ServiceBase, ITopicService
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        public TopicService(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
-        public TopicService()
+        public TopicService(IHttpClientFactory httpClientFactory) : base (httpClientFactory, Clients.TopicClient)
         {
         }
-
+        
         public List<TopicViewModel> GetTopics()
         {
             var client = _httpClientFactory.CreateClient("TopicClient");
@@ -76,6 +70,18 @@ namespace ForumClientApp.Services
 
         public List<SectionViewModel> DeleteTopic(int id)
         {
+
+            HttpResponseMessage response = null;
+            response = _client.DeleteAsync("api/Topic/" + id + "").Result;
+            return new List<SectionViewModel>();
+        }
+
+        public List<SectionViewModel> UpdateTopic(int id, TopicViewModel topic)
+        {
+            string stringData = JsonConvert.SerializeObject(topic);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage responce = _client.PutAsync("api/Topic/" + id + "", contentData).Result;
 
             return new List<SectionViewModel>();
         }
