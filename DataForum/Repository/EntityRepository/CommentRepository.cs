@@ -1,4 +1,5 @@
 ﻿using Forum.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,7 +30,7 @@ namespace Forum.Data.Repository.EntityRepository
 
         public void Update(int id, Comment item)
         {
-            _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
         public Comment Get(int id)

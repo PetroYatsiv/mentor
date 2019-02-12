@@ -70,7 +70,7 @@
                                 <form asp-controller="Home" asp-action="EditSection" method="post">
                                     <div class="modal-body">
                                         <input type="hidden" value="@item.Id" name="Id" />
-                                        <input value="@item.SectionDescription" name="SectionDescription" />
+                                        <input value="@item.SectionDescription" class="form-control" name="SectionDescription" />
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -94,7 +94,7 @@
                                 <form asp-controller="Home" asp-action="DeleteSection" method="post">
                                     <div class="modal-body">
                                         <input type="hidden" value="@item.Id" name="Id" />
-                                        <input value="@item.SectionDescription" name="SectionDescription" disabled />
+                                        <input value="@item.SectionDescription" class="form-control" name="SectionDescription" disabled />
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -153,7 +153,7 @@
                                                     <div class="modal-body">
                                                         <input type="hidden" value="@topic.Id" name="Id" />
                                                         <input type="hidden" value="@item.Id" name="SectionId"/>
-                                                        <input value="@topic.Description" name="Description" />
+                                                        <input value="@topic.Description" class="form-control" name="Description" />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,7 +177,7 @@
                                                 <form asp-controller="Topic" asp-action="DeleteTopic" method="post">
                                                     <div class="modal-body">
                                                         <input type="hidden" value="@topic.Id" name="Id" />
-                                                        <input value="@topic.Description" name="SectionDescription" disabled />
+                                                        <input value="@topic.Description" class="form-control" name="SectionDescription" disabled />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -36,7 +36,7 @@
                                 </div>
                             </td>
                         </tr>
-                        @*modal edit section*@
+                        @*modal edit sub topic*@
                         <div class="modal fade" id="editSubTopic-@subTopic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -50,7 +50,7 @@
                                         <div class="modal-body">
                                             <input type="hidden" value="@subTopic.Id" name="Id" />
                                             <input type="hidden" value="@subTopic.TopicId" name="TopicId" />
-                                            <input value="@subTopic.Description" name="Description" />
+                                            <input value="@subTopic.Description" class="form-control" name="Description" />
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         @*end modal*@
-                        @*modal delete section*@
+                        @*modal delete sub topic*@
                         <div class="modal fade" id="deleteSubTopic-@subTopic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -75,7 +75,7 @@
                                         <div class="modal-body">
                                             <input type="hidden" value="@subTopic.Id" name="Id" />
                                             <input type="hidden" value="@subTopic.TopicId" name="TopicId" />
-                                            <input value="@subTopic.Description" name="Description" disabled />
+                                            <input value="@subTopic.Description" class="form-control" name="Description" disabled />
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

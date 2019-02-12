@@ -35,10 +35,74 @@
                                 </div>
                             </td>
                         </tr>
-
+                        @*modal edit sub topic*@
+                        <div class="modal fade" id="editComment-@comment.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Comment</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form asp-controller="Comment" asp-action="UpdateComment" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" value="@comment.Id" name="Id" />
+                                            <input type="hidden" value="@Model.Id" name="SubtopicId" />
+                                            <input value="@comment.CommentText" class="form-control" name="CommentText" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @*end modal*@
+                        @*modal delete sub topic*@
+                        <div class="modal fade" id="deleteComment-@comment.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Comment</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form asp-controller="Comment" asp-action="DeleteComment" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" value="@comment.Id" name="Id" />
+                                            <input type="hidden" value="@Model.Id" name="SubTopicId" />
+                                            <input value="@comment.CommentText" class="form-control" name="CommentText" disabled />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @*end modal*@
                     }
                 </tbody>
             </table>
         </div>
+        <div class="container">
+            <div class="alert alert-success">
+                <form asp-controller="Comment" asp-action="CreateNewComment" class="form-inline" method="post">
+                    <div>
+                        <label>New Comment</label>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="hidden" value="@Model.Id" name="SubtopicId" />
+                        <input name="CommentText" placeholder="Enter comment" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Add New Comment</button>
+                </form>
+            </div>
+        </div>
+        <hr />
     </div>
 </div>

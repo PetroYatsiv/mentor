@@ -11,6 +11,6 @@ namespace ForumClientApp.Contracts
         List<CommentViewModel> GetComments(int subTopicId);
         List<CommentViewModel> CreateNewComment(CommentViewModel commentViewModel);
         List<CommentViewModel> DeleteComment(int commentId);
-        List<CommentViewModel> UpdateSubTopic(int id, CommentViewModel comment);
+        List<CommentViewModel> UpdateComment(int id, CommentViewModel comment);
     }
 }

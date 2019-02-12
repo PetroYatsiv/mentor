@@ -10,6 +10,7 @@ namespace ForumClientApp.Models
         public int Id { get; set; }
         public string CommentText { get; set; }
         public DateTime CommentDate { get; set; }
+        public int SubTopicId { get; set; }
         public SubTopicViewModel SubTopic { get; set; }
     }
 }
