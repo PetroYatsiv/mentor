@@ -20,13 +20,26 @@ namespace ForumClientApp.Controllers
         // GET: /<controller>/
         public IActionResult Index(int id)
         {
-            //_subtopicService.CreateNewSubTopic()
-            return View();
+            var subTopic = _subtopicService.GetSubTopic(id);
+            return View(subTopic);
         }
 
-        public IActionResult CreateNewSubTopic(SubTopicViewModel subTopicViewModel)
+        public IActionResult Create(SubTopicViewModel subTopicViewModel)
         {
-           return RedirectToAction("Index", new {id = subTopicViewModel.TopicId });
+            _subtopicService.CreateNewSubTopic(subTopicViewModel);
+           return RedirectToAction("Index","Topic", new {id = subTopicViewModel.TopicId });
+        }
+
+        public IActionResult EditSubTopic(int id, SubTopicViewModel subTopicViewModel)
+        {
+            _subtopicService.UpdateSubTopic(id, subTopicViewModel);
+            return RedirectToAction("Index", "Topic", new { id = subTopicViewModel.TopicId });
+        }
+
+        public IActionResult DeleteSubTopic(int id, int topicId)
+        {
+            _subtopicService.DeleteSubTopic(id);
+            return RedirectToAction("Index", "Topic", new { id = topicId });
         }
     }
 }

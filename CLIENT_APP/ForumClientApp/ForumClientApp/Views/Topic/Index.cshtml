@@ -1,6 +1,5 @@
 ﻿@model ForumClientApp.Models.TopicViewModel
 
-
 <div class="container">
     <div class="alert alert-success">
         <h4 class="alert-heading">Topic:@Model.Id - @Model.Description</h4>
@@ -12,7 +11,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Sub Topic</th>
+                        <th scope="col">Sub Topics</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -21,16 +20,80 @@
                     {
                         <tr>
                             <th>Id - @subTopic.Id</th>
-                            <td>@subTopic.Description</td>
-                            <td><a class="btn btn-danger">Delete</a></td>
+                            <td>
+                                <a asp-controller="SubTopic"
+                                   asp-action="Index"
+                                   asp-route-id="@subTopic.Id"><span><strong>@subTopic.Description</strong></span></a>
+                            </td>
+                            <td>
+                                <div class="btn-group float-right">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSubTopic-@subTopic.Id">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSubTopic-@subTopic.Id">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
+                        @*modal edit section*@
+                        <div class="modal fade" id="editSubTopic-@subTopic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Sub Topic</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form asp-controller="SubTopic" asp-action="EditSubTopic" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" value="@subTopic.Id" name="Id" />
+                                            <input type="hidden" value="@subTopic.TopicId" name="TopicId" />
+                                            <input value="@subTopic.Description" name="Description" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @*end modal*@
+                        @*modal delete section*@
+                        <div class="modal fade" id="deleteSubTopic-@subTopic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Sub Topic</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form asp-controller="SubTopic" asp-action="DeleteSubTopic" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" value="@subTopic.Id" name="Id" />
+                                            <input type="hidden" value="@subTopic.TopicId" name="TopicId" />
+                                            <input value="@subTopic.Description" name="Description" disabled />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @*end modal*@
                     }
                 </tbody>
             </table>
+            <hr />
         </div>
         <div class="container">
             <div class="alert alert-success">
-                <form asp-controller="SubTopic" asp-action="CreateNewSubTopic" class="form-inline" method="post">
+                <form asp-controller="SubTopic" asp-action="Create" class="form-inline" method="post">
                     <div>
                         <label>New Sub Topic </label>
                     </div>

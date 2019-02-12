@@ -8,7 +8,7 @@ namespace ForumClientApp.Contracts
 {
     public interface ISubtopicService
     {
-        List<SubTopicViewModel> GetSubTopics(int topicId);
+        SubTopicViewModel GetSubTopic(int id);
         List<SubTopicViewModel> CreateNewSubTopic(SubTopicViewModel sectionViewModel);
         List<SubTopicViewModel> DeleteSubTopic(int id);
         List<SubTopicViewModel> UpdateSubTopic(int id, SubTopicViewModel section);

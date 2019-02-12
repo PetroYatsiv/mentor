@@ -1,0 +1,44 @@
+﻿@model ForumClientApp.Models.SubTopicViewModel
+
+<div class="container">
+    <div class="alert alert-success">
+        <h4 class="alert-heading">Sub Topic: @Model.Id - @Model.Description</h4>
+    </div>
+
+    <div class="alert alert-secondary">
+        <div class="container">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sub Topics</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <tr>
+                            <th>ID - @comment.Id</th>
+                            <td>
+                                <a><span><strong>@comment.CommentText</strong></span></a>
+                            </td>
+                            <td>
+                                @comment.CommentDate
+                                <div class="btn-group float-right">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editComment-@comment.Id">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteComment-@comment.Id">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -46,14 +46,6 @@
                             <div>
                                 <span><strong>section:@item.Id - @item.SectionDescription</strong></span>
                                 <div class="btn-group float-right">
-                                    @*<a asp-controller="Home"
-                                           asp-action="EditSection"
-                                           asp-route-id="@item.Id"
-                                           asp-route-SectionDescription="@item.SectionDescription" class="btn btn-warning float-right">Edit</a>
-                                        <a asp-controller="Home"
-                                           asp-action="DeleteSection"
-                                           asp-route-id="@item.Id" class="btn btn-danger float-right">Delete</a>*@
-
                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSection-@item.Id">
                                         Edit
                                     </button>
