@@ -23,8 +23,7 @@ namespace Forum.Data.Repository.EntityRepository
 
         public IEnumerable<Section> GetAll()
         {
-            var sections = _db.Sections.Include(x => x.Topics).ToList();
-            return sections;
+            return _db.Sections.Include(x => x.Topics).ToList();
         }
 
         public void Create(Section section)

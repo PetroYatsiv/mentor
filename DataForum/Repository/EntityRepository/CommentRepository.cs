@@ -35,12 +35,14 @@ namespace Forum.Data.Repository.EntityRepository
 
         public Comment Get(int id)
         {
-            return _db.Comments.Find(id);
+            var result = _db.Comments.Find(id);
+            return result;
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            return _db.Comments;
+            var result = _db.Comments;
+            return result;
         }
     }
 }

@@ -6,13 +6,16 @@ using System.Text;
 
 namespace Forum.Data
 {
-    interface IUnitOfWork
-    {
-    }
+    
 
-    public class UnitOfWork : IDisposable, IUnitOfWork
+    public class UnitOfWork : IDisposable
     {
-        private ForumDatabaseContext _db = new ForumDatabaseContext();
+        private ForumDatabaseContext _db;
+
+        public UnitOfWork()
+        {
+            _db = new ForumDatabaseContext();
+        }
 
         private SectionRepository _sectionRepository;
         private TopicRepository _topicRepository;
