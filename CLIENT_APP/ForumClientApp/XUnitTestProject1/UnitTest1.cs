@@ -29,7 +29,7 @@ namespace XUnitTestProject1
         {
             //Arrange
             var test = new Mock<ISectionService>();
-            test.Setup(x => x.GetSections()).Returns<List<ForumClientApp.Models.SectionViewModel>>(null);
+            test.Setup(x => x.GetSections()).Returns<List<SectionViewModel>>(null);
             HomeController controller = new HomeController(test.Object);
 
             //Act
@@ -42,24 +42,11 @@ namespace XUnitTestProject1
         public void RedirectToIndex()
         {
             //arange
-            var section = new SectionViewModel();
-
-            var test = new Mock<ISectionService>();
-            HomeController controller = new HomeController(test.Object);
-
-            //test.Setup(x => x.GetSections()).Returns<List<SectionViewModel>>(null);
-            //test.Setup(x => x.DeleteSection(1)).Returns<List<SectionViewModel>>(null);
-
-
+           
             //Act
-            //var result = (Redi)
-            var result = controller.AddNewSection(section) as RedirectToActionResult;
-            //result.RouteValues["action"].Equals("Index");
-            //result.RouteValues["controller"].Equals("Home");
+            
 
-            //Assert.Equal("Home", result.RouteValues["controller"]);
-            Assert.NotNull(result);
-            //Assert.Equal("Index", result.RouteValues["action"].ToString());
+            //Assert
         }
     }
 }
