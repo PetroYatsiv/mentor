@@ -21,7 +21,7 @@ namespace ForumClientApp.Controllers
         public IActionResult Index(int id)
         {
             var subTopic = _subtopicService.GetSubTopic(id);
-            return View(subTopic);
+            return View("Index", subTopic);
         }
 
         public IActionResult Create(SubTopicViewModel subTopicViewModel)
