@@ -6,21 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Forum.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Forum.Data.Tests
 {
     public class UnitTest1
     {
-
-        //private ForumDatabaseContext context;
-        //private CommentRepository repository;
-
-        //public UnitTest1()
-        //{
-        //    context = new ForumDatabaseContext();
-        //    repository = new CommentRepository(context);
-        //}
-
         [Fact]
         public void GetAll_CallMethod_NotNull()
         {
@@ -47,32 +38,37 @@ namespace Forum.Data.Tests
             Assert.Equal(actualComments.First().Id, commentStub.First().Id);
         }
 
-        //[Fact]
-        //public void Get_CallMethod_Count1()
+        [Fact]
+        public void Get_Method_Return_One_Value()
+        {
+            //Arrange
+            var commentStub = new List<Comment>()
+            {
+                new Comment() {Id = 1, SubTopicId = 1, CommentText = "Comment Text" },
+                new Comment(),
+                new Comment()
+            };
+
+            DbSet<Comment> dbSetComments = GetQueryableMockDbSet(commentStub);
+            var forumDatabaseContext = new Mock<ForumDatabaseContext>();
+            forumDatabaseContext.Setup(c => c.Comments).Returns(dbSetComments);
+            CommentRepository commentRepository = new CommentRepository(forumDatabaseContext.Object);
+
+            //Act
+            var expectedResults = commentRepository.Get(1);
+
+
+            //Assert
+            Assert.Equal(expectedResults, commentStub.First());
+        }
+
+        //DbSet<T> test<T>(T comment) where T : class
         //{
-        //    //Arrange
-        //    var mock = new Mock<CommentRepository>();
-        //    mock.Setup(repo => repo.Get(1)).Returns(GetTestComment);
-        //    //Act
-        //    Comment expected = repository.Get(1);
-        //    //var expected = repository.Get(1);
-        //    Comment comment = new Comment();
+            
+        //    var dbSet = new Mock<DbSet<T>>();
+        //    dbSet.Setup(m => )
 
-        //    //Assert
-        //    Assert.Equal(1,expected);
-
-
-        //}
-        //private Comment GetTestComment()
-        //{
-        //    return new Comment
-        //    {
-        //        Id = 1,
-        //        CommentDate = DateTime.Now,
-        //        CommentText = "Some Comment Test",
-        //        SubTopicId = 1,
-        //        SubTopic = new SubTopic()
-        //    };
+        //    return dbSet.Object;
         //}
 
 

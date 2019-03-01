@@ -6,7 +6,6 @@ using ForumClientApp.Services;
 using Forum.Data.Models;
 using System.Collections;
 using System.Net.Http;
-using AutoMapper;
 using System;
 using System.Collections.Generic;
 using ForumClientApp.Contracts;

@@ -22,7 +22,7 @@ namespace ForumClientApp.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult UpdateComment(int id, CommentViewModel comment)
