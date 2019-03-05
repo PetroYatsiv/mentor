@@ -42,7 +42,7 @@ namespace ForumClientApp.Services
             {
                 var postException = ex.Message;
             }
-            string content = response.Content.ReadAsStringAsync().ToString();
+            //string content = response.Content.ReadAsStringAsync().ToString();
             return new List<SectionViewModel>();
         }
 
@@ -50,9 +50,14 @@ namespace ForumClientApp.Services
         {
             string stringData = JsonConvert.SerializeObject(section);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
-
-            HttpResponseMessage responce = _client.PutAsync("api/Section/" + sectionId + "", contentData).Result;
-
+            try
+            {
+                _client.PutAsync("api/Section/" + sectionId + "", contentData);
+            }
+            catch (Exception ex)
+            {
+                var putException = ex.Message;
+            }
             return new List<SectionViewModel>();
         }
 
