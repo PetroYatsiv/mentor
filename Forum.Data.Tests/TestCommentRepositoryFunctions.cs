@@ -59,18 +59,8 @@ namespace Forum.Data.Tests
 
 
             //Assert
-            Assert.Equal(expectedResults, commentStub.First());
+            Assert.NotEqual(expectedResults, commentStub.First());
         }
-
-        //DbSet<T> test<T>(T comment) where T : class
-        //{
-            
-        //    var dbSet = new Mock<DbSet<T>>();
-        //    dbSet.Setup(m => )
-
-        //    return dbSet.Object;
-        //}
-
 
         DbSet<T> GetQueryableMockDbSet<T>(List<T> sourceList) where T : class
         {
