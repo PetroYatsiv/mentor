@@ -1,11 +1,5 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ForumClientApp.Models;
-using ForumClientApp.Services;
-using Forum.Data.Models;
-using System.Collections;
-using System.Net.Http;
 using System;
 using System.Collections.Generic;
 using ForumClientApp.Contracts;
@@ -29,7 +23,7 @@ namespace ForumClientApp.Controllers
                 sections = _sectionService.GetSections();
                 if (sections == null)
                 {
-                    return NoContent();//204 status code
+                    return NoContent();
                 }
             }
             catch (Exception ex)
