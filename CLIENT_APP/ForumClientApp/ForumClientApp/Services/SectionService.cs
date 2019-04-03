@@ -6,40 +6,66 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ForumClientApp.Models;
 using Newtonsoft.Json;
+using Forum.Data.Models;
+using ForumClientApp.Contracts;
 
 namespace ForumClientApp.Services
 {
-    public interface ISectionService
+    public class SectionService :  ServiceBase, ISectionService
     {
-        List<Section> GetSections();
-    }
-
-    public class SectionService : ISectionService
-    {
-        HttpClient client;
-        string url = "https://localhost:44310/";
-        string responceData;
-        HttpResponseMessage responseMessage;
-
-        public SectionService()
+        public SectionService(IHttpClientFactory clientFactory) : base(clientFactory, Clients.SectionClient)
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            responseMessage = client.GetAsync("api/Section").Result;
         }
-
-        public List<Section> GetSections()
+        public List<SectionViewModel> GetSections()
         {
+            var responseMessage = _client.GetAsync("api/Section").Result;
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                var test = JsonConvert.DeserializeObject<List<Section>>(responseData);
-                return test;
+                var sections = JsonConvert.DeserializeObject<List<SectionViewModel>>(responseData);
+                return sections;
             }
-            return new List<Section>();
+            return new List<SectionViewModel>();
+        }
+
+        public List<SectionViewModel> CreateNewSection(SectionViewModel section)
+        {
+            string stringData = JsonConvert.SerializeObject(section);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+            HttpResponseMessage response = null;
+            try
+            {
+                response = _client.PostAsync("api/Section", contentData).Result;
+            }
+            catch (Exception ex)
+            {
+                var postException = ex.Message;
+            }
+            //string content = response.Content.ReadAsStringAsync().ToString();
+            return new List<SectionViewModel>();
+        }
+
+        public List<SectionViewModel> UpdateSection(int sectionId, SectionViewModel section)
+        {
+            string stringData = JsonConvert.SerializeObject(section);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+            try
+            {
+                _client.PutAsync("api/Section/" + sectionId + "", contentData);
+            }
+            catch (Exception ex)
+            {
+                var putException = ex.Message;
+            }
+            return new List<SectionViewModel>();
+        }
+
+        public List<SectionViewModel> DeleteSection (int sectionId)
+        {
+            HttpResponseMessage response = null;
+            response = _client.DeleteAsync("api/Section/"+sectionId+"").Result;
+            return new List<SectionViewModel>();
         }
     }
 }

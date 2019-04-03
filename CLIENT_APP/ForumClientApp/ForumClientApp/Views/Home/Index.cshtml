@@ -1,44 +1,218 @@
 ﻿@using ForumClientApp.Models
 
-@model List<Section>
+@model List<SectionViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    .alert-danger .btn-danger {
+        float: right;
+    }
 
-<div>
-    <button id="button">text</button>
-    <p id="date"></p>
-</div>
-<div>
-    @foreach (var item in Model)
-    {
-    <div style="border: 1px solid; border-radius: 5px; margin: 5px; padding: 10px">
-        <div style="border-bottom: 1px solid #000000"> <p><h2> @item.SectionDescription</h2> </p><br /></div>
+    .alert-danger span {
+        line-height: 35px;
+    }
 
-        @foreach (var t in item.Topics)
+    .alert-danger > div:after {
+        clear: both;
+        content: '';
+        display: table;
+    }
+</style>
+
+<div class="container">
+    <div class="alert alert-success">
+        <form asp-controller="Home" asp-action="AddNewSection" class="form-inline" method="post">
+            <div>
+                <label />New Section Name</label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" name="SectionDescription" placeholder="enter name" />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Create New Section</button>
+        </form>
+    </div>
+
+    <div>
+        @foreach (var item in Model)
         {
-        <div style="border-left:1px solid #000000; margin-left: 5px"></div><p>@t.Description</p>
+            <div class="alert alert-secondary">
+
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            @*delete section*@
+                            <div>
+                                <span><strong>section:@item.Id - @item.SectionDescription</strong></span>
+                                <div class="btn-group float-right">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSection-@item.Id">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSection-@item.Id">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*modal edit section*@
+                    <div class="modal fade" id="editSection-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit section</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form asp-controller="Home" asp-action="EditSection" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" value="@item.Id" name="Id" />
+                                        <input value="@item.SectionDescription" class="form-control" name="SectionDescription" />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @*end modal*@
+                    @*modal delete section*@
+                    <div class="modal fade" id="deleteSection-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete section</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form asp-controller="Home" asp-action="DeleteSection" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" value="@item.Id" name="Id" />
+                                        <input value="@item.SectionDescription" class="form-control" name="SectionDescription" disabled />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @*end modal*@
+
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div class="container">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Topic</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var topic in item.Topics)
+                                {
+                                    <tr>
+                                        <th>Topic Id - @topic.Id</th>
+                                        <td>
+                                            <a asp-controller="Topic"
+                                               asp-action="Index"
+                                               asp-route-id="@topic.Id"><span><strong>@topic.Description</strong></span></a>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group float-right">
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editTopic-@topic.Id">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTopic-@topic.Id">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*modal edit topic*@
+                                    <div class="modal fade" id="editTopic-@topic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit topic</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form asp-controller="Topic" asp-action="UpdateTopic" method="post">
+                                                    <div class="modal-body">
+                                                        <input type="hidden" value="@topic.Id" name="Id" />
+                                                        <input type="hidden" value="@item.Id" name="SectionId"/>
+                                                        <input value="@topic.Description" class="form-control" name="Description" />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*end modal*@
+                                    @*modal delete topic*@
+                                    <div class="modal fade" id="deleteTopic-@topic.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete topic</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form asp-controller="Topic" asp-action="DeleteTopic" method="post">
+                                                    <div class="modal-body">
+                                                        <input type="hidden" value="@topic.Id" name="Id" />
+                                                        <input value="@topic.Description" class="form-control" name="SectionDescription" disabled />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*end modal*@
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="alert alert-success">
+                        <form asp-controller="Topic" asp-action="CreateNewTopic" class="form-inline" method="post">
+                            <div>
+                                <label>New Topic Name</label>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="hidden" name="SectionId" value="@item.Id" class="form-control" />
+                                <input name="Description" placeholder="Enter Topic Name" class="form-control" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Create New Topic</button>
+                        </form>
+                    </div>
+                </div>
+                <hr />
+            </div>
         }
     </div>
-    }
 </div>
 
-<script>   
-    $(document).ready(function () {
-    $("#button").click(getData);
-    });
 
-    function getData() {
-        var url = "Home/Index";
 
-        $.getJSON(url, function (data) {
-
-            $("#button").text(123);
-        })
-    }
-</script>

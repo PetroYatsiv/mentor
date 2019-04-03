@@ -12,43 +12,45 @@ namespace Forum.WebApi.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        UnitOfWork unitOfWork;
-        private readonly ForumDatabaseContext _context;
+        private UnitOfWork _unitOfWork;
 
-        public CommentController(ForumDatabaseContext context)
+        public CommentController(UnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         //GET api/section
         [HttpGet]
         public IActionResult GetValues()
         {
-            var comments = unitOfWork.Comments.GetAll();
+            var comments = _unitOfWork.Comments.GetAll();
             return Ok(comments);
         }
 
         public IActionResult GetValue(int id)
         {
-            var value = unitOfWork.Comments.Get(id);
+            var value = _unitOfWork.Comments.Get(id);
             return Ok(value);
         }
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post(Comment comment)
         {
-
+            _unitOfWork.Comments.Create(comment);
+            _unitOfWork.Save();
         }
-
-        [HttpPut]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/comment/5
+        [HttpPut("{id}")]
+        public void Put(int id, Comment comment)
         {
-
+            _unitOfWork.Comments.Update(id, comment);
+            _unitOfWork.Save();
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            unitOfWork.Comments.Delete(id);
+            _unitOfWork.Comments.Delete(id);
+            _unitOfWork.Save();
         }
     }
 }

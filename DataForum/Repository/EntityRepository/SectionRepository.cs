@@ -23,15 +23,12 @@ namespace Forum.Data.Repository.EntityRepository
 
         public IEnumerable<Section> GetAll()
         {
-            var t = _db.Sections.Include(x => x.Topics).ToList();
-            return t;
-            //return _db.Sections.Include(x => x.Topics);
-            //return _db.Sections;
+            return _db.Sections.Include(x => x.Topics).ToList();
         }
 
-        public void Create(Section item)
+        public void Create(Section section)
         {
-            _db.Sections.Add(item);
+           _db.Sections.Add(section);
         }
 
         public void Delete(int id)
@@ -43,9 +40,9 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(Section item)
+        public void Update(int id, Section item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified; 
         }
     }
 }

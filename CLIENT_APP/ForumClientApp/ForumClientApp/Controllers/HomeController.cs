@@ -5,33 +5,55 @@ using ForumClientApp.Models;
 using ForumClientApp.Services;
 using Forum.Data.Models;
 using System.Collections;
+using System.Net.Http;
+using System;
+using System.Collections.Generic;
+using ForumClientApp.Contracts;
 
 namespace ForumClientApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly SectionService _sectionService;
-        public HomeController()
+        private readonly ISectionService _sectionService;
+
+        public HomeController(ISectionService sectionService)
         {
-            _sectionService = new SectionService();
+            _sectionService = sectionService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var sections = _sectionService.GetSections();
-
+            List<SectionViewModel> sections = new List<SectionViewModel>();
+            try
+            {
+                sections = _sectionService.GetSections();
+                if (sections == null)
+                {
+                    return NoContent();//204 status code
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
             return View(sections);
         }
-
-        public IActionResult Privacy()
+        public IActionResult AddNewSection(SectionViewModel section)
         {
-            return View();
+            _sectionService.CreateNewSection(section);
+            return RedirectToAction("Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult DeleteSection(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            _sectionService.DeleteSection(id);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditSection(int id, SectionViewModel section)
+        {
+            _sectionService.UpdateSection(id, section);
+            return RedirectToAction("Index");
         }
     }
 }

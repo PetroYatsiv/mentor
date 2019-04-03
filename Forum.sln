@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.WebApi", "WebApplicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Data", "DataForum\Forum.Data.csproj", "{3DFA7D77-E536-4262-B91C-43ABE05B2D18}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Data.Tests", "Forum.Data.Tests\Forum.Data.Tests.csproj", "{6A900AC4-9595-4A43-B0B4-0AD37C257DC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3DFA7D77-E536-4262-B91C-43ABE05B2D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DFA7D77-E536-4262-B91C-43ABE05B2D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DFA7D77-E536-4262-B91C-43ABE05B2D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A900AC4-9595-4A43-B0B4-0AD37C257DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A900AC4-9595-4A43-B0B4-0AD37C257DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A900AC4-9595-4A43-B0B4-0AD37C257DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A900AC4-9595-4A43-B0B4-0AD37C257DC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

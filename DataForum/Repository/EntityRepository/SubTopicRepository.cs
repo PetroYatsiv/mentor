@@ -1,6 +1,8 @@
 ﻿using Forum.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Forum.Data.Repository.EntityRepository
@@ -11,6 +13,11 @@ namespace Forum.Data.Repository.EntityRepository
         public SubTopicRepository(ForumDatabaseContext context)
         {
             _db = context;
+        }
+
+        public SubTopic Get(int id)
+        {
+            return _db.SubTopics.Include(x => x.Comments).Where(x => x.Id == id).First();
         }
 
         public void Create(SubTopic item)
@@ -27,15 +34,12 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(SubTopic item)
+        public void Update(int id, SubTopic item)
         {
-            _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
-        public SubTopic Get(int id)
-        {
-            return _db.SubTopics.Find(id);
-        }
+       
 
         public IEnumerable<SubTopic> GetAll()
         {

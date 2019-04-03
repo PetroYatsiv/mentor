@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Forum.Data.Models
+namespace ForumClientApp.Models
 {
-   public class Comment
+    public class CommentViewModel
     {
         public int Id { get; set; }
         public string CommentText { get; set; }
         public DateTime CommentDate { get; set; }
-        public SubTopic SubTopic { get; set; }
         public int SubTopicId { get; set; }
+        public SubTopicViewModel SubTopic { get; set; }
     }
 }

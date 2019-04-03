@@ -1,7 +1,9 @@
 ﻿using Forum.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Forum.Data.Repository.EntityRepository
 {
@@ -27,19 +29,21 @@ namespace Forum.Data.Repository.EntityRepository
             }
         }
 
-        public void Update(Comment item)
+        public void Update(int id, Comment item)
         {
-            _db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
         public Comment Get(int id)
         {
-            return _db.Comments.Find(id);
+            var result = _db.Comments.Find(id);
+            return result;
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            return _db.Comments;
+            var result = _db.Comments;
+            return result;
         }
     }
 }
